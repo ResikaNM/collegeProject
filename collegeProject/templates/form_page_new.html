@@ -1,0 +1,225 @@
+
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>My Form</title>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;    <h2>My Form</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;    <form method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;        {% csrf_token %}&ndash;&gt;-->
+<!--&lt;!&ndash;        {{ form.as_p }}&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="submit" value="Submit">&ndash;&gt;-->
+
+<!--&lt;!&ndash;    </form>&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; my_form_template.html &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<form method="post">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    {% csrf_token %}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    {{ form.as_p }}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <input type="submit" value="Submit">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</form>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;<script>&ndash;&gt;-->
+<!--&lt;!&ndash;    // Get the department and course dropdown elements&ndash;&gt;-->
+<!--&lt;!&ndash;    var departmentDropdown = document.getElementById("id_department");&ndash;&gt;-->
+<!--&lt;!&ndash;    var courseDropdown = document.getElementById("id_course");&ndash;&gt;-->
+
+<!--&lt;!&ndash;    // Define the courses for each department&ndash;&gt;-->
+<!--&lt;!&ndash;    var coursesByDepartment = {&ndash;&gt;-->
+<!--&lt;!&ndash;        'Bachelor of Business Management': ['BBA', 'BCom'],&ndash;&gt;-->
+<!--&lt;!&ndash;        'Computer Science': ['Biomechanics','BSc CS', 'MSc CS'],&ndash;&gt;-->
+<!--&lt;!&ndash;        'Biomedical engineering': ['BME', 'MSc BME'],&ndash;&gt;-->
+<!--&lt;!&ndash;        'Environmental Studies': ['Ecology', 'Sustainability', 'Renewable Energy'],&ndash;&gt;-->
+<!--&lt;!&ndash;        'Arts and Humanities': ['Literature', 'Philosophy', 'Visual Arts'],&ndash;&gt;-->
+<!--&lt;!&ndash;        // Add other departments and their courses&ndash;&gt;-->
+<!--&lt;!&ndash;    };&ndash;&gt;-->
+
+<!--&lt;!&ndash;    // Update the course options when the department changes&ndash;&gt;-->
+<!--&lt;!&ndash;    departmentDropdown.addEventListener('change', function() {&ndash;&gt;-->
+<!--&lt;!&ndash;        var selectedDepartment = departmentDropdown.value;&ndash;&gt;-->
+<!--&lt;!&ndash;        var courses = coursesByDepartment[selectedDepartment] || [];&ndash;&gt;-->
+
+<!--&lt;!&ndash;        // Clear existing options&ndash;&gt;-->
+<!--&lt;!&ndash;        courseDropdown.innerHTML = '';&ndash;&gt;-->
+
+<!--&lt;!&ndash;        // Add new options&ndash;&gt;-->
+<!--&lt;!&ndash;        courses.forEach(function(course) {&ndash;&gt;-->
+<!--&lt;!&ndash;            var option = document.createElement('option');&ndash;&gt;-->
+<!--&lt;!&ndash;            option.value = course;&ndash;&gt;-->
+<!--&lt;!&ndash;            option.text = course;&ndash;&gt;-->
+<!--&lt;!&ndash;            courseDropdown.add(option);&ndash;&gt;-->
+<!--&lt;!&ndash;        });&ndash;&gt;-->
+<!--&lt;!&ndash;    });&ndash;&gt;-->
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>My Form</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h2>My Form</h2>-->
+<!--    <form method="post">-->
+<!--        {% csrf_token %}-->
+<!--        {{ form.as_p }}-->
+<!--        <input type="submit" value="Submit">-->
+<!--    </form>-->
+
+<!--&lt;!&ndash; my_form_template.html &ndash;&gt;-->
+<!--<script>-->
+<!--    // Get the department and course dropdown elements-->
+<!--    var departmentDropdown = document.getElementById("id_department");-->
+<!--    var courseDropdown = document.getElementById("id_course");-->
+
+<!--    // Define the courses for each department-->
+<!--    var coursesByDepartment = {-->
+<!--        'Bachelor of Business Management': ['BBA', 'BCom'],-->
+<!--        'Computer Science': ['Biomechanics', 'BSc CS', 'MSc CS'],-->
+<!--        'Biomedical engineering': ['BME', 'MSc BME'],-->
+<!--        'Environmental Studies': ['Ecology', 'Sustainability', 'Renewable Energy'],-->
+<!--        'Arts and Humanities': ['Literature', 'Philosophy', 'Visual Arts'],-->
+<!--        // Add other departments and their courses-->
+<!--    };-->
+
+<!--    // Store the original choices for the 'course' dropdown-->
+<!--    var originalCourseChoices = Array.from(courseDropdown.options);-->
+
+<!--    // Update the course options when the department changes-->
+<!--    departmentDropdown.addEventListener('change', function() {-->
+<!--        var selectedDepartment = departmentDropdown.value;-->
+<!--        var courses = coursesByDepartment[selectedDepartment] || [];-->
+
+<!--        // Clear existing options-->
+<!--        courseDropdown.innerHTML = '';-->
+
+<!--        // Add back the original choices-->
+<!--        originalCourseChoices.forEach(function(option) {-->
+<!--            courseDropdown.add(option.cloneNode(true));-->
+<!--        });-->
+
+<!--        // Add new options-->
+<!--        courses.forEach(function(course) {-->
+<!--            var option = document.createElement('option');-->
+<!--            option.value = course;-->
+<!--            option.text = course;-->
+<!--            courseDropdown.add(option);-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>college</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+        $(document).ready(function(){
+        $('.chkcvalues').click(function(){
+        var txt="";
+        $('.chkcvalues:checked').each(function(){
+           txt+=$(this).val()+","
+        });
+        txt=txt.substring(0,txt.length-1);
+        $('#txtvalues').val(txt);
+        });
+        });
+    </script>
+
+</head>
+<body>
+<h2>Student Form</h2>
+<form>
+  <div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+    </div>
+  </div>
+  <fieldset class="form-group">
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+          <label class="form-check-label" for="gridRadios1">
+            First radio
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+          <label class="form-check-label" for="gridRadios2">
+            Second radio
+          </label>
+        </div>
+        <div class="form-check disabled">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+          <label class="form-check-label" for="gridRadios3">
+            Third disabled radio
+          </label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </div>
+  </div>
+</form>
+{% for msg in messages %}
+        {{msg}}
+        {% endfor %}
+<a href="{% url 'index' %}">Return to Home</a>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_department").change(function () {
+        const url = $("#personForm").attr("data-courses-url");  // get the url of the `load_cities` view
+        const departmentId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'department_id': departmentId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                console.log(data)
+                $("#id_course").html(data);  // replace the contents of the city input with the data that came from the server
+                /*
+
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (course) {
+                    html_data += `<option value="${course.id}">${course.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_course").html(html_data);
+
+                */
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>

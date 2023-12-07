@@ -1,0 +1,80 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>college</title>
+     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+        $(document).ready(function(){
+        $('.chkcvalues').click(function(){
+        var txt="";
+        $('.chkcvalues:checked').each(function(){
+           txt+=$(this).val()+","
+        });
+        txt=txt.substring(0,txt.length-1);
+        $('#txtvalues').val(txt);
+        });
+        });
+    </script>
+
+</head>
+<body>
+<h2>Student Form</h2>
+
+<form method="POST" id="personForm" data-courses-url="{% url 'ajax_load_courses' %}" class="your-form-class">
+    {% csrf_token %}
+    {{ form.as_p }}
+     Courses :
+    <input type="checkbox" value="pen" class="chkcvalues"/>pen
+    <input type="checkbox" value="notebook" class="chkcvalues"/>notebook
+    <input type="checkbox" value="exam paper" class="chkcvalues"/>exam paper
+    </hr>
+    <input type="text" name="materials_provide" id="txtvalues" class="your-text-input-class"/><br>
+<!--    <input id="but1" type="submit" value="Insert Record"/>-->
+    <input id="but1" type="submit" value="Submit" class="your-submit-button-class"/>
+<!--    <input type="button" value="Logout">-->
+    <a href="{% url 'credentialApp:logout' %}" class="your-logout-link-class">Logout</a>
+
+
+</form>
+{% for msg in messages %}
+        {{msg}}
+        {% endfor %}
+<a href="{% url 'index' %}">Return to Home</a>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_department").change(function () {
+        const url = $("#personForm").attr("data-courses-url");  // get the url of the `load_cities` view
+        const departmentId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'department_id': departmentId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                console.log(data)
+                $("#id_course").html(data);  // replace the contents of the city input with the data that came from the server
+                /*
+
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (course) {
+                    html_data += `<option value="${course.id}">${course.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_course").html(html_data);
+
+                */
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>
